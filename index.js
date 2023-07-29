@@ -2,7 +2,7 @@ import { config } from "dotenv";
 config();
 import app from "./server.js"
 import mongodb from "mongodb"
-// import ReviewsDAO from "./dao/reviewsDAO.js"
+import ReviewsDAO from "./dao/reviewsDAO.js"
 
 const MongoClient = mongodb.MongoClient;
 const mongodb_username = process.env.MONGODB_USERNAME;
@@ -21,6 +21,7 @@ MongoClient.connect(
     console.error(err.stack)
     process.exit(1)
 }).then(async client => {
+    await ReviewsDAO.injectDB(client)       // To transfer database connection to ReviewsDAO
     app.listen(port,() => {                 //Listen is to start the server 
         console.log(`Listening on Port ${port}`)
     })
