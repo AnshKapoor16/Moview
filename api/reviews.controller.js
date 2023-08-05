@@ -4,7 +4,7 @@ export default class ReviewsController {
     // Using static so, we don't have to instantiate it and can use like a class property
     static async apiPostReview(req, res, next) {
         try {
-            const movieId = req.body.movieId;
+            const movieId = parseInt(req.body.movieId);
             const review = req.body.review;
             const user = req.body.user;
             //Response
